@@ -20,8 +20,9 @@ spec:
       script: |          
           #!/bin/bash
           set -e ;
+          ls -la
           echo "$(params.command)"
-          ./$(params.command)
+          $(params.command)
 ---          
 apiVersion: tekton.dev/v1beta1
 kind: Task
