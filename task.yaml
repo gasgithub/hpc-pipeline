@@ -7,8 +7,6 @@ spec:
     - name: repository
       description: The Git Repository for the Application Source Code
       default: repository
-    - name: appname
-      description: The name of the application passed as environment variable
     - name: command
       description: command to exec
   workspaces:
@@ -19,9 +17,6 @@ spec:
     - name: gcc-build
       image: gcc
       workingDir: /usr/src/myapp
-      env: 
-        - name: APPNAME
-          value: $(params.appname)
       script: |          
           #!/bin/bash
           set -e ;
