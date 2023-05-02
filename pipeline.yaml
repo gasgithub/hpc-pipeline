@@ -85,7 +85,7 @@ spec:
         - name: command
           value: "./$(params.app-name) 11"
       workspaces:
-        - name: artifacts
+        - name: output
           workspace: pipeline-ws
     - name: upload-artifacts
       runAfter: 
