@@ -67,7 +67,7 @@ spec:
           workspace: pipeline-ws 
     - name: build-source
       runAfter:
-        - git-clone-repo
+        - git-clone-application-repo
       taskRef:
         name: gcc-build
       params:
