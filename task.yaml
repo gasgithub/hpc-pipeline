@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: gcc-build
+spec:
+  params:
+    - name: repository
+      description: The Git Repository for the Application Source Code
+      default: repository
+    - name: appname
+      description: The name of the application passed as environment variable
+    - name: custom-script
+      description: script to exec
+  workspaces:
+    - name: output
+      description: A workspace to store the output of intermittent steps
+      mountPath: /usr/src/myapp
+  steps:
+    - name: gcc-build
+      image: gcc
+      workingDir: /usr/src/myapp
+      env: 
+        - name: APPNAME
+          value: $(params.appname)
+      script: |          
+          #!/bin/bash
+          set -e ;
+          echo "$(params.command)"
+          ./$(params.command)
+---          
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: upload-artifacts
+spec:
+  params:
+      - name: virtual-server-instance
+      - name: host-ssh-keys
+      - name: host-user-name
+  workspaces:
+    - name: output
+      description: A workspace to store the output of intermittent steps
+      mountPath: /artifacts
+  steps:
+    - name: upload-artifacts
+      image: ubuntu
+      workingDir: /artifacts
+      script: |          
+          #!/bin/bash
+          set -e ;
+          echo "uploading"
+          ls -la
+
+
+
